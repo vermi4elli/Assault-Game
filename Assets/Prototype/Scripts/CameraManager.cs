@@ -2,36 +2,39 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraManager : MonoBehaviour
+namespace MyCompany.Assault.Prototype
 {
-	[SerializeField] private Transform cam;
-	[SerializeField] private Transform target;
-	[SerializeField] private float verticalOffset;
-	[SerializeField] private float followOffset;
-	[SerializeField] private float followSpeed = 2.0f;
-	[SerializeField] private bool shouldLookAtTarget;
-
-	private Vector3 targetPosition;
-	private Vector3 targetDirection;
-
-	private void FixedUpdate()
+	public class CameraManager : MonoBehaviour
 	{
-		Move();
-		Look();
-	}
+		[SerializeField] private Transform cam;
+		[SerializeField] private Transform target;
+		[SerializeField] private float verticalOffset;
+		[SerializeField] private float followOffset;
+		[SerializeField] private float followSpeed = 2.0f;
+		[SerializeField] private bool shouldLookAtTarget;
 
-	private void Move()
-	{
-		targetPosition = new Vector3(target.transform.position.x, target.transform.position.y + verticalOffset, target.transform.position.z - followOffset);
-		targetDirection = targetPosition - cam.position;
-		cam.position += targetDirection * Time.deltaTime * followSpeed;
-	}
+		private Vector3 targetPosition;
+		private Vector3 targetDirection;
 
-	private void Look()
-	{
-		if (shouldLookAtTarget)
+		private void FixedUpdate()
 		{
-			cam.LookAt(target);
+			Move();
+			Look();
+		}
+
+		private void Move()
+		{
+			targetPosition = new Vector3(target.transform.position.x, target.transform.position.y + verticalOffset, target.transform.position.z - followOffset);
+			targetDirection = targetPosition - cam.position;
+			cam.position += targetDirection * Time.deltaTime * followSpeed;
+		}
+
+		private void Look()
+		{
+			if (shouldLookAtTarget)
+			{
+				cam.LookAt(target);
+			}
 		}
 	}
 }
