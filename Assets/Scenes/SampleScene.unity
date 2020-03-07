@@ -179,6 +179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 327975858}
+  - component: {fileID: 327975860}
   m_Layer: 0
   m_Name: WeaponManager
   m_TagString: Untagged
@@ -200,6 +201,24 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &327975860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 327975857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1469b906c09404b992b35ef9cf4408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &490484145 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1261979003067462111, guid: bae805bbe87e4e841b14b73b543957de,
+    type: 3}
+  m_PrefabInstance: {fileID: 8248694805480931586}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,6 +554,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   actor: {fileID: 1058567191}
   moveSpeed: 20
+  weaponData:
+    projectilePrefab: {fileID: 7439849940068017936, guid: 98761ebdb5f78ab47a2daee30027b5f6,
+      type: 3}
+    projectileSpawnPoint: {fileID: 490484145}
 --- !u!4 &1769067716
 Transform:
   m_ObjectHideFlags: 0

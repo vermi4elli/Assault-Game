@@ -13,6 +13,15 @@ namespace MyCompany.Assault.Prototype
         private float moveSpeed = 10f;
         private Vector2 joystickCenter;
 
+        [SerializeField]
+        private WeaponManager.WeaponManagerData weaponData;
+        private WeaponManager weaponManager;
+
+        private void Awake()
+        {
+            weaponManager = new WeaponManager(weaponData);
+        }
+
         // Update is called once per frame
         void FixedUpdate()
         {
@@ -23,14 +32,14 @@ namespace MyCompany.Assault.Prototype
         {
             Move();
             Look();
-            //Shoot();
+            Shoot();
         }
 
         private void Shoot()
         {
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButtonDown(0))
             {
-
+                weaponManager.Use();
             }
         }
 
