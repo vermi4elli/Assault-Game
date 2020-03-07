@@ -10,10 +10,11 @@ namespace MyCompany.Assault.Prototype
         [SerializeField]
         private Transform actor;
         [SerializeField]
-        private float moveSpeed = 4.0f;
+        private float moveSpeed = 10f;
+        private Vector2 joystickCenter;
 
         // Update is called once per frame
-        void Update()
+        void FixedUpdate()
         {
             HandlePlayerMovement();
         }
@@ -22,16 +23,25 @@ namespace MyCompany.Assault.Prototype
         {
             Move();
             Look();
+            //Shoot();
+        }
+
+        private void Shoot()
+        {
+            if (Input.GetMouseButton(0))
+            {
+
+            }
         }
 
         private void Move()
         {
             Vector3 movePosition = Vector3.zero;
 
-            movePosition.x = -Input.GetAxis("Horizontal");
-            movePosition.z = -Input.GetAxis("Vertical");
+            movePosition.x = Input.GetAxis("Horizontal");
+            movePosition.z = Input.GetAxis("Vertical");
 
-            actor.Translate(movePosition * moveSpeed * Time.deltaTime);
+            actor.Translate(movePosition * moveSpeed * Time.deltaTime, Space.World);
         }
 
         private void Look()
@@ -45,7 +55,8 @@ namespace MyCompany.Assault.Prototype
         {
             Vector2 mousePosition = Input.mousePosition;
             Vector2 relMousePos = new Vector2(mousePosition.x - Screen.width / 2, mousePosition.y - Screen.height / 2);
-            float angle = Mathf.Atan2(relMousePos.y, relMousePos.x) * Mathf.Rad2Deg * -1;
+            float angle = Mathf.Atan2(relMousePos.x, relMousePos.y) * Mathf.Rad2Deg + 30;
+            Debug.Log(angle);
             Quaternion rotation = Quaternion.AngleAxis(angle, Vector3.up);
             return rotation;
         }
