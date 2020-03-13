@@ -10,12 +10,13 @@ public class PlayerMovementPC : MonoBehaviour
     
     //needed for movement of the character
     private Vector2 movement = Vector2.zero;
-    public float movSpeed = 10f;
+    public float movSpeedKeys = 10f;
 
     //needed for the rotation of the character
     private Vector2 mousePos = Vector2.zero;
     private Vector2 mousePressPos = Vector2.zero;
     private bool mouseLeftKeyPressed = false;
+    public float movSpeedMouse = 2f;
 
     void Update()
     {
@@ -47,8 +48,24 @@ public class PlayerMovementPC : MonoBehaviour
 
     private void FixedUpdate()
     {
-        player.transform.Translate(new Vector3(movement.x, 0f, movement.y) * movSpeed * Time.deltaTime);
+        //MovePlayerViaKeys();
+        MovePlayerViaMouse();
         RotatePlayer();
+    }
+
+    private void MovePlayerViaMouse()
+    {
+        if (mouseLeftKeyPressed)
+        {
+            Vector2 direction = mousePos - mousePressPos;
+            direction.Normalize();
+            player.transform.Translate(new Vector3(direction.x, 0f, direction.y) * movSpeedMouse * Time.deltaTime);
+        }
+    }
+
+    private void MovePlayerViaKeys()
+    {
+        player.transform.Translate(new Vector3(movement.x, 0f, movement.y) * movSpeedKeys * Time.deltaTime);
     }
 
     private void RotatePlayer()
@@ -56,7 +73,7 @@ public class PlayerMovementPC : MonoBehaviour
         if (mouseLeftKeyPressed)
         {
             Vector2 direction = mousePos - mousePressPos;
-            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * -1 + 120;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg * -1;
             player.transform.rotation = Quaternion.Euler(0f, angle, 0f);
         }
     }

@@ -636,7 +636,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1089124072}
-  movSpeed: 10
+  movSpeedKeys: 10
+  movSpeedMouse: 2
 --- !u!65 &1089124075
 BoxCollider:
   m_ObjectHideFlags: 0
