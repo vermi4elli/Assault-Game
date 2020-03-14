@@ -11,7 +11,7 @@ public class CameraController : MonoBehaviour
     //needed constants
     public float verticalOffset = 20f;
     public float followOffset = 10f;
-    public Vector3 followOffsetVector;
+    private Vector3 followOffsetVector;
     public float followSpeed = 5f;
 
     //camera movement variables
