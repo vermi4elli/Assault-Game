@@ -18,21 +18,16 @@ public class PlayerMovementPC : MonoBehaviour
     private bool mouseLeftKeyPressed = false;
     public float moveSpeedMouse = 2f;
 
-    //test value
-    private Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-
     void Update()
     {
         //GetKeysInput();
+
         GetMousePos();
-        GetMousePosAnyway();
     }
 
-    private void GetMousePosAnyway()
-    {
-        mousePos = Input.mousePosition;
-    }
-
+    /// <summary>
+    /// A method for getting the movement direction for the keys controls
+    /// </summary>
     private void GetKeysInput()
     {
         movement.x = Input.GetAxis("Horizontal");
@@ -62,8 +57,6 @@ public class PlayerMovementPC : MonoBehaviour
     private void FixedUpdate()
     {
         //MovePlayerViaKeys();
-        //RotatePlayerAnyway();
-
         
         RotatePlayer();
         MovePlayerViaMouse();
@@ -73,15 +66,10 @@ public class PlayerMovementPC : MonoBehaviour
     {
         if (mouseLeftKeyPressed)
         {
-            //Vector2 direction = mousePos - mousePressPos;
-            //direction.Normalize();
-            //Vector3 moveDirection = new Vector3(direction.x, 0f, direction.y);
-            //Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", moveDirection.x, moveDirection.y, moveDirection.z));
-            //player.transform.Translate(moveDirection * moveSpeedMouse * Time.deltaTime, Space.Self);
-
             Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", player.transform.forward.x, 
                                                               player.transform.forward.y, 
                                                               player.transform.forward.z));
+
             player.transform.Translate(player.transform.forward * moveSpeedMouse * Time.deltaTime, Space.World);
         }
     }
@@ -98,15 +86,11 @@ public class PlayerMovementPC : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// A method to move player via keys
+    /// </summary>
     private void MovePlayerViaKeys()
     {
         player.transform.Translate(new Vector3(movement.x, 0f, movement.y) * moveSpeedKeys * Time.deltaTime);
-    }
-
-    private void RotatePlayerAnyway()
-    {
-        Vector3 lookDirection = player.GetComponent<Rigidbody>().velocity;
-        Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
-        player.transform.rotation = rotation;
     }
 }
