@@ -81,6 +81,11 @@ public class PlayerMovementPC : MonoBehaviour
             Vector2 direction = mousePos - mousePressPos;
             direction.Normalize();
             Vector3 lookDirection = new Vector3(direction.x, 0f, direction.y);
+
+            //Correcting the angle accordingly to the camera rotation
+            // (thinking the camera is static in it's rortation)
+            lookDirection = Quaternion.Euler(0f, 44f, 0f) * lookDirection;
+
             Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
             player.transform.rotation = rotation;
         }
