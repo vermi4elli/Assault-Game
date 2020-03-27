@@ -121,6 +121,26 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &141771087 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3068971152228454999, guid: ee771f35ce7219d42ba919027e10ae08,
+    type: 3}
+  m_PrefabInstance: {fileID: 3068971153303610559}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &141771088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 141771087}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c0ecb3877179ed4f97ad0080672521e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 141771087}
+  moveSpeed: 2
 --- !u!1 &183055978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1110,6 +1130,11 @@ PrefabInstance:
         type: 3}
       propertyPath: moveSpeedMouse
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3068971152228454997, guid: ee771f35ce7219d42ba919027e10ae08,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3068971152228454999, guid: ee771f35ce7219d42ba919027e10ae08,
         type: 3}
