@@ -5,7 +5,10 @@ public class PlayerMovementPC : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
-    
+
+    //weapons of the player
+    WeaponManager weaponManager;
+
     //needed for movement of the character
     private Vector2 movement = Vector2.zero;
     public float moveSpeedKeys = 10f;
@@ -64,9 +67,9 @@ public class PlayerMovementPC : MonoBehaviour
     {
         if (mouseLeftKeyPressed)
         {
-            Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", player.transform.forward.x, 
-                                                              player.transform.forward.y, 
-                                                              player.transform.forward.z));
+            //Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", player.transform.forward.x, 
+            //                                                  player.transform.forward.y, 
+            //                                                  player.transform.forward.z));
 
             player.transform.Translate(player.transform.forward * moveSpeedMouse * Time.deltaTime, Space.World);
         }

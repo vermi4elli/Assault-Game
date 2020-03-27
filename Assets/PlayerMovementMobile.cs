@@ -22,7 +22,9 @@ public class PlayerMovementMobile : MonoBehaviour
 
     private void GetTouchPos()
     {
-        //controlls the fact if the mouse is still touching the screen or not
+        if (Input.touchCount > 0)
+        {
+            //controlls the fact if the mouse is still touching the screen or not
         if (Input.GetTouch(0).phase == TouchPhase.Began)
         {
             fingerPressPos = Input.GetTouch(0).position;
@@ -38,6 +40,7 @@ public class PlayerMovementMobile : MonoBehaviour
         {
             fingerPos = Input.GetTouch(0).position;
         }
+        }
     }
 
     private void FixedUpdate()
@@ -50,9 +53,9 @@ public class PlayerMovementMobile : MonoBehaviour
     {
         if (fingerPressing)
         {
-            Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", player.transform.forward.x,
-                                                              player.transform.forward.y,
-                                                              player.transform.forward.z));
+            //Debug.Log(String.Format("x: {0}, y: {1}, z: {2}", player.transform.forward.x,
+            //                                                  player.transform.forward.y,
+            //                                                  player.transform.forward.z));
 
             player.transform.Translate(player.transform.forward * moveSpeed * Time.deltaTime, Space.World);
         }
