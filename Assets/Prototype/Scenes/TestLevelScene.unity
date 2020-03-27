@@ -140,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 141771087}
-  moveSpeed: 2
+  moveSpeed: 4
 --- !u!1 &183055978
 GameObject:
   m_ObjectHideFlags: 0
@@ -1129,7 +1129,7 @@ PrefabInstance:
     - target: {fileID: 3068971152228454997, guid: ee771f35ce7219d42ba919027e10ae08,
         type: 3}
       propertyPath: moveSpeedMouse
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3068971152228454997, guid: ee771f35ce7219d42ba919027e10ae08,
         type: 3}
