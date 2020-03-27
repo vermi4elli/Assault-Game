@@ -1116,5 +1116,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3068971152228454992, guid: ee771f35ce7219d42ba919027e10ae08, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: ee771f35ce7219d42ba919027e10ae08, type: 3}
