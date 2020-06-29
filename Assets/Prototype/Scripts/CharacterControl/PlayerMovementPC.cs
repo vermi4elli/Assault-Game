@@ -1,13 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerMovementPC : MonoBehaviour
 {
     [SerializeField]
     private GameObject player;
 
-    //weapons of the player
-    WeaponManager weaponManager;
 
     //needed for movement of the character
     private Vector2 movement = Vector2.zero;

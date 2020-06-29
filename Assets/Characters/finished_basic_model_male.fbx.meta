@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 08c143cee4158ad4598103b17406c286
+guid: e96b87abeff30e94ca5f57defcafeabb
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
@@ -15,6 +15,9 @@ ModelImporter:
   - first:
       74: 2933577835342229695
     second: metarig|Walk
+  - first:
+      74: -2591626515993949171
+    second: metarig|Walk (1)
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,7 +38,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -44,11 +47,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: metarig|Idle
-      takeName: metarig|Idle
+      name: metarig|Walk (1)
+      takeName: metarig|Walk
       internalID: 0
       firstFrame: 0
-      lastFrame: 99
+      lastFrame: 24
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -216,13 +219,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 3
+  animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
