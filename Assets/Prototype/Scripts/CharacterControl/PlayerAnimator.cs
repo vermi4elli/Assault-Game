@@ -22,14 +22,19 @@ public class PlayerAnimator : MonoBehaviour
     Vector3 lastPosition = Vector3.zero;
     void FixedUpdate()
     {
+        UpdateSpeedPercentValue();
+
+        //Debug.Log("Speed percent: " + speedPercent);
+
+        animator.SetFloat("speedPercent", speedPercent);
+    }
+
+    private void UpdateSpeedPercentValue()
+    {
         horizontal = Mathf.Abs(floatingJoystic.Horizontal);
         vertical = Mathf.Abs(floatingJoystic.Vertical);
 
-        speedPercent = horizontal > vertical ? 
+        speedPercent = horizontal > vertical ?
             horizontal : vertical;
-
-        Debug.Log("Speed percent: " + speedPercent);
-
-        animator.SetFloat("speedPercent", speedPercent);
     }
 }
