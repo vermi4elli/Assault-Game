@@ -4,28 +4,32 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    const float locomotionAnimationSmoothTime = .1f;
-
-    Animator animator;
     [SerializeField]
     private GameObject player;
-    public float speed;
+    [SerializeField]
+    private FloatingJoystick floatingJoystic;
+
+    private Animator animator;
+    private float horizontal;
+    private float vertical;
+    private float speedPercent;
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
-        //speed = GetComponent<PlayerMovementMobile>().moveSpeed;
     }
 
     Vector3 lastPosition = Vector3.zero;
     void FixedUpdate()
     {
-        float speedPercent = (player.transform.position - lastPosition).magnitude / .05f;
-        Debug.Log("Speed percent: " + speedPercent + 
-            "; Speed value: " + (player.transform.position - lastPosition).magnitude);
-        lastPosition = player.transform.position;
+        horizontal = Mathf.Abs(floatingJoystic.Horizontal);
+        vertical = Mathf.Abs(floatingJoystic.Vertical);
 
-        //animator.SetFloat("speedPercent", speedPercent, locomotionAnimationSmoothTime, Time.deltaTime);
+        speedPercent = horizontal > vertical ? 
+            horizontal : vertical;
+
+        Debug.Log("Speed percent: " + speedPercent);
+
         animator.SetFloat("speedPercent", speedPercent);
     }
 }

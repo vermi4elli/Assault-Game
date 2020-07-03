@@ -57,7 +57,7 @@ public class PlayerMovementMobile : MonoBehaviour
             //                                                  player.transform.forward.y,
             //                                                  player.transform.forward.z));
 
-            player.transform.Translate(player.transform.forward * moveSpeed * Time.deltaTime, Space.World);
+            player.transform.Translate(player.transform.forward * moveSpeed * Time.fixedDeltaTime, Space.World);
         }
     }
 
@@ -70,7 +70,7 @@ public class PlayerMovementMobile : MonoBehaviour
             Vector3 lookDirection = new Vector3(direction.x, 0f, direction.y);
 
             //Correcting the angle accordingly to the camera rotation
-            // (thinking the camera is static in it's rortation)
+            // (thinking the camera is static in it's rotation)
             lookDirection = Quaternion.Euler(0f, 44f, 0f) * lookDirection;
 
             Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
