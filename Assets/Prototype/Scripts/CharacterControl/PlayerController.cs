@@ -4,9 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public const float moveSpeed = 3f;
-    private float horizontal;
-    private float vertical;
+    public const float moveSpeed = 4f;
     private float speedPercent;
 
     [SerializeField]
@@ -23,14 +21,15 @@ public class PlayerController : MonoBehaviour
         RotatePlayer();
         MovePlayer();
         
-        //DebugLogger();
+        DebugLogger();
     }
 
     private void DebugLogger()
     {
-        Debug.Log("Vertical: " + floatingJoystick.Vertical +
-                    "; Horizontal: " + floatingJoystick.Horizontal +
-                    "; Look Direction: " + floatingJoystick.Direction);
+        Debug.Log("x: " + floatingJoystick.Horizontal +
+            "; y: " + floatingJoystick.Vertical +
+            "; direction: " + floatingJoystick.Direction +
+            "; speed: " + speedPercent);
     }
 
     private void MovePlayer()
@@ -48,10 +47,6 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateSpeedPercentValue()
     {
-        horizontal = Mathf.Abs(floatingJoystick.Horizontal);
-        vertical = Mathf.Abs(floatingJoystick.Vertical);
-
-        speedPercent = horizontal > vertical ?
-            horizontal : vertical;
+        speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
     }
 }

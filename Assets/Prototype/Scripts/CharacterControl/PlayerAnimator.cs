@@ -5,13 +5,9 @@ using UnityEngine;
 public class PlayerAnimator : MonoBehaviour
 {
     [SerializeField]
-    private GameObject player;
-    [SerializeField]
-    private FloatingJoystick floatingJoystic;
+    private FloatingJoystick floatingJoystick;
 
     private Animator animator;
-    private float horizontal;
-    private float vertical;
     private float speedPercent;
 
     void Start()
@@ -19,22 +15,21 @@ public class PlayerAnimator : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
     }
 
-    Vector3 lastPosition = Vector3.zero;
     void FixedUpdate()
     {
         UpdateSpeedPercentValue();
-
-        //Debug.Log("Speed percent: " + speedPercent);
-
         animator.SetFloat("speedPercent", speedPercent);
+        
+        //DebugLogger();
+    }
+
+    private void DebugLogger()
+    {
+        Debug.Log("Speed percent: " + speedPercent);
     }
 
     private void UpdateSpeedPercentValue()
     {
-        horizontal = Mathf.Abs(floatingJoystic.Horizontal);
-        vertical = Mathf.Abs(floatingJoystic.Vertical);
-
-        speedPercent = horizontal > vertical ?
-            horizontal : vertical;
+        speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
     }
 }
