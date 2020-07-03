@@ -23,13 +23,13 @@ public class PlayerAnimator : MonoBehaviour
         //DebugLogger();
     }
 
-    private void DebugLogger()
-    {
-        Debug.Log("Speed percent: " + speedPercent);
-    }
-
     private void UpdateSpeedPercentValue()
     {
         speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
+    }
+
+    private void DebugLogger()
+    {
+        Debug.Log("Speed percent: " + speedPercent);
     }
 }

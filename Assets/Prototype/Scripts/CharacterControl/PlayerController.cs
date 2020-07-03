@@ -29,7 +29,8 @@ public class PlayerController : MonoBehaviour
         Debug.Log("x: " + floatingJoystick.Horizontal +
             "; y: " + floatingJoystick.Vertical +
             "; direction: " + floatingJoystick.Direction +
-            "; speed: " + speedPercent);
+            "; speed: " + speedPercent +
+            "; zero: " + floatingJoystick.Direction.Equals(Vector2.zero));
     }
 
     private void MovePlayer()
@@ -42,7 +43,8 @@ public class PlayerController : MonoBehaviour
         Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(floatingJoystick.Direction.x, 0f, floatingJoystick.Direction.y);
         Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        player.transform.rotation = rotation;
+        if (!floatingJoystick.Direction.Equals(Vector2.zero))
+            player.transform.rotation = rotation;
     }
 
     private void UpdateSpeedPercentValue()
