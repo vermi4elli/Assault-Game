@@ -4,32 +4,23 @@ using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
 {
-    [SerializeField]
-    private FloatingJoystick floatingJoystick;
-
     private Animator animator;
+    private PlayerController playerController;
+
     private float speedPercent;
+    private bool rollForward;
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        playerController = GetComponentInChildren<PlayerController>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
-        UpdateSpeedPercentValue();
-        animator.SetFloat("speedPercent", speedPercent);
-        
-        //DebugLogger();
-    }
+        animator.SetFloat("speedPercent", playerController.speedPercent);
+        animator.SetBool("rollForward", playerController.rollForward);
 
-    private void UpdateSpeedPercentValue()
-    {
-        speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
-    }
-
-    private void DebugLogger()
-    {
-        Debug.Log("Speed percent: " + speedPercent);
+        playerController.DebugLog();
     }
 }

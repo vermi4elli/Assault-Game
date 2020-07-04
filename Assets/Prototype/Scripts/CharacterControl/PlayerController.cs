@@ -4,33 +4,40 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public const float moveSpeed = 4f;
-    private float speedPercent;
+    private const float moveSpeed = 4f;
+    public float speedPercent;
+    public bool rollForward;
 
     [SerializeField]
     private GameObject player;
     [SerializeField]
     private FloatingJoystick floatingJoystick;
 
-    void FixedUpdate()
+    void Update()
     {
-        // this method is similar to the PlayerAnimator's
-        // it gets the speed of the player according to how much the handle of the joystick is moved
         UpdateSpeedPercentValue();
-
-        RotatePlayer();
-        MovePlayer();
-        
-        DebugLogger();
+        UpdateRollForwardValue();
     }
 
-    private void DebugLogger()
+    private void UpdateRollForwardValue()
+    {
+        rollForward = Input.GetButton("Jump");
+    }
+
+    void FixedUpdate()
+    {
+        RotatePlayer();
+        MovePlayer();
+    }
+
+    public void DebugLog()
     {
         Debug.Log("x: " + floatingJoystick.Horizontal +
             "; y: " + floatingJoystick.Vertical +
             "; direction: " + floatingJoystick.Direction +
             "; speed: " + speedPercent +
-            "; zero: " + floatingJoystick.Direction.Equals(Vector2.zero));
+            "; rollForward: " + rollForward +
+            "; space is pressed: " + Input.GetButton("Jump"));
     }
 
     private void MovePlayer()

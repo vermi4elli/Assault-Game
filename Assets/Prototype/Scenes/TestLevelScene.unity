@@ -1042,7 +1042,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 067e0575b22c09042a3451f638098380, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  floatingJoystick: {fileID: 1501465643}
 --- !u!136 &1572273122
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1085,6 +1084,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dd53d4d968e04c4a966c817b53717d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speedPercent: 0
+  rollForward: 0
   player: {fileID: 1572273117}
   floatingJoystick: {fileID: 1501465643}
 --- !u!1 &1855075157
