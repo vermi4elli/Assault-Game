@@ -5,11 +5,22 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private const float moveSpeed = 4f;
-    private const float rollSpeed = 10f;
+    // The move speed constants
+    [SerializeField]
+    private float moveSpeed = 4f;
+    [SerializeField]
+    private float rollSpeed = 10f;
+    [SerializeField]
+    private float touchContinuityTime = 0.5f;
+
+    // Passed to the PlayerAnimator to awaken animations
     public float speedPercent;
     public bool rollForwardAwaken;
 
+    // Needed for the UpdateRollForwardAwakenValue function
+    private float touchBegan;
+
+    // Needed for checking if the animation is finished and checking it's name
     private Animator animator;
 
     [SerializeField]
@@ -31,6 +42,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Blocking the possibility to change the direction and speed of
+        // the player while the Roll forward animation is playing
         if (!RollAnimationIsPlaying())
         {
             RotatePlayer();
@@ -40,7 +53,6 @@ public class PlayerController : MonoBehaviour
         {
             RollForwardPlayer();
         }
-
     }
 
     private void RollForwardPlayer()
@@ -84,11 +96,30 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateRollForwardAwakenValue()
     {
-        rollForwardAwaken = Input.GetKeyDown(KeyCode.Space);
-    }
-    
-    private void UpdateRollForwardAwakenValueTest()
-    {
-        rollForwardAwaken = Input.GetKeyDown(KeyCode.Space);
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    touchBegan = Time.time;
+                    break;
+                case TouchPhase.Ended:
+                    rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+                    break;
+                default:
+                    rollForwardAwaken = false;
+                    break;
+            }
+        }
+
+#if UNITY_EDITOR
+        if (Input.GetMouseButtonDown(0))
+            touchBegan = Time.time;
+        if (Input.GetMouseButtonUp(0))
+            rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+        else rollForwardAwaken = false;
+#endif
     }
 }
