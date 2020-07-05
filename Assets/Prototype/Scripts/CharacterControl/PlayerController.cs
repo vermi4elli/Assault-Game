@@ -1,13 +1,14 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
     private const float moveSpeed = 4f;
+    private const float rollSpeed = 10f;
     public float speedPercent;
-    public bool rollForward;
-    private float rollBoost;
+    public bool rollForwardAwaken;
 
     private Animator animator;
 
@@ -24,15 +25,27 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateSpeedPercentValue();
-        UpdateRollForwardValue();
-        rollBoost = this.animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward") ? 2.5f : 1f;
+        UpdateRollForwardAwakenValue();
     }
 
 
     void FixedUpdate()
     {
-        RotatePlayer();
-        MovePlayer();
+        if (!RollAnimationIsPlaying())
+        {
+            RotatePlayer();
+            MovePlayer();
+        }
+        else
+        {
+            player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
+        }
+        
+    }
+
+    private bool RollAnimationIsPlaying()
+    {
+        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
     }
 
     public void DebugLog()
@@ -41,13 +54,13 @@ public class PlayerController : MonoBehaviour
             "; y: " + floatingJoystick.Vertical +
             "; direction: " + floatingJoystick.Direction +
             "; speed: " + speedPercent +
-            "; rollForward: " + rollForward +
-            "; space is pressed: " + Input.GetButton("Jump"));
+            "; rollingForward: " + RollAnimationIsPlaying() +
+            "; space is pressed: " + rollForwardAwaken);
     }
 
     private void MovePlayer()
     {
-        player.transform.Translate(player.transform.forward * speedPercent * moveSpeed * rollBoost * Time.fixedDeltaTime, Space.World);
+        player.transform.Translate(player.transform.forward * speedPercent * moveSpeed * Time.fixedDeltaTime, Space.World);
     }
 
     private void RotatePlayer()
@@ -55,7 +68,7 @@ public class PlayerController : MonoBehaviour
         Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(floatingJoystick.Direction.x, 0f, floatingJoystick.Direction.y);
         Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        if (!floatingJoystick.Direction.Equals(Vector2.zero) && rollBoost == 1f)
+        if (!floatingJoystick.Direction.Equals(Vector2.zero))
             player.transform.rotation = rotation;
     }
 
@@ -64,8 +77,8 @@ public class PlayerController : MonoBehaviour
         speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
     }
 
-    private void UpdateRollForwardValue()
+    private void UpdateRollForwardAwakenValue()
     {
-        rollForward = Input.GetButton("Jump");
+        rollForwardAwaken = Input.GetKeyDown(KeyCode.Space);
     }
 }

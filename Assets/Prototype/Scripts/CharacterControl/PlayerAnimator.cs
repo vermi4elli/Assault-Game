@@ -7,8 +7,8 @@ public class PlayerAnimator : MonoBehaviour
     private Animator animator;
     private PlayerController playerController;
 
-    private float speedPercent;
-    private bool rollForward;
+    private int speedPercentHash = Animator.StringToHash("speedPercent");
+    private int rollForwardHash = Animator.StringToHash("rollForward");
 
     void Start()
     {
@@ -18,8 +18,8 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
-        animator.SetFloat("speedPercent", playerController.speedPercent);
-        animator.SetBool("rollForward", playerController.rollForward);
+        animator.SetFloat(speedPercentHash, playerController.speedPercent);
+        animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
 
         playerController.DebugLog();
     }
