@@ -38,9 +38,14 @@ public class PlayerController : MonoBehaviour
         }
         else
         {
-            player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
+            RollForwardPlayer();
         }
-        
+
+    }
+
+    private void RollForwardPlayer()
+    {
+        player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
     }
 
     private bool RollAnimationIsPlaying()
@@ -78,6 +83,11 @@ public class PlayerController : MonoBehaviour
     }
 
     private void UpdateRollForwardAwakenValue()
+    {
+        rollForwardAwaken = Input.GetKeyDown(KeyCode.Space);
+    }
+    
+    private void UpdateRollForwardAwakenValueTest()
     {
         rollForwardAwaken = Input.GetKeyDown(KeyCode.Space);
     }
