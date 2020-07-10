@@ -6,6 +6,8 @@ public class PlayerAnimator : MonoBehaviour
 {
     private Animator animator;
     private PlayerController playerController;
+    [SerializeField]
+    private GameObject weapon;
 
     private int speedPercentHash = Animator.StringToHash("speedPercent");
     private int rollForwardHash = Animator.StringToHash("rollForward");
@@ -20,6 +22,11 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
+
+        if (weapon.activeSelf)
+        {
+            animator.SetLayerWeight(1, 1);
+        }
 
         playerController.DebugLog();
     }
