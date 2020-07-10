@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
         player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
     }
 
-    private bool RollAnimationIsPlaying()
+    public bool RollAnimationIsPlaying()
     {
         return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
     }

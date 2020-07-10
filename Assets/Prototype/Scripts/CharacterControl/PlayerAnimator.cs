@@ -9,6 +9,10 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField]
     private GameObject weapon;
 
+    // temp value to test the shooting animation
+    public int enemiesCounter;
+
+    // used to change the animations
     private int speedPercentHash = Animator.StringToHash("speedPercent");
     private int rollForwardHash = Animator.StringToHash("rollForward");
 
@@ -26,6 +30,19 @@ public class PlayerAnimator : MonoBehaviour
         if (weapon.activeSelf)
         {
             animator.SetLayerWeight(1, 1);
+
+            if (enemiesCounter > 0 && !playerController.RollAnimationIsPlaying())
+            {
+                animator.SetLayerWeight(2, 1);
+            }
+            else
+            {
+                animator.SetLayerWeight(2, 0);
+            }
+        }
+        else
+        {
+            animator.SetLayerWeight(1, 0);
         }
 
         playerController.DebugLog();
