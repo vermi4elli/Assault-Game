@@ -905,7 +905,7 @@ PrefabInstance:
     - target: {fileID: 8555678731652910525, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d7ec6e3b03a1f1b49a624d3c13edb565, type: 3}
@@ -953,6 +953,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weapon: {fileID: 935274058}
+  enemiesCounter: 0
 --- !u!136 &987681900
 CapsuleCollider:
   m_ObjectHideFlags: 0

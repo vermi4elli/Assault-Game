@@ -8,6 +8,8 @@ public class PlayerAnimator : MonoBehaviour
     private PlayerController playerController;
     [SerializeField]
     private GameObject weapon;
+    [SerializeField]
+    private bool weaponIsActive;
 
     // temp value to test the shooting animation
     public int enemiesCounter;
@@ -26,6 +28,8 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
+
+        weapon.SetActive(weaponIsActive);
 
         if (weapon.activeSelf)
         {
