@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -18,6 +19,8 @@ public class PlayerAnimator : MonoBehaviour
     private int speedPercentHash = Animator.StringToHash("speedPercent");
     private int rollForwardHash = Animator.StringToHash("rollForward");
 
+    public bool WeaponIsActive { get => weaponIsActive; set => weaponIsActive = value; }
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -30,7 +33,7 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
 
         // turning the weapon on/off depending on the boolean weaponIsActive
-        weapon.SetActive(weaponIsActive);
+        weapon.SetActive(WeaponIsActive);
 
         // turning the hold animation on
         if (weapon.activeSelf)
@@ -52,6 +55,6 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetLayerWeight(1, 0);
         }
 
-        //playerController.DebugLog();
+        playerController.DebugLog();
     }
 }

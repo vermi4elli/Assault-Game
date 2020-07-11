@@ -6,13 +6,12 @@ using UnityEngine;
 public class BulletCotroller : MonoBehaviour
 {
     [SerializeField]
-    private Transform shootPoint;
-    [SerializeField]
     private GameObject bulletType;
     [SerializeField]
     private GameObject player;
     private PlayerAnimator playerAnimator;
     private PlayerController playerController;
+    private Transform shootPoint;
 
     [SerializeField]
     private float bulletSpeed;
@@ -24,6 +23,7 @@ public class BulletCotroller : MonoBehaviour
     {
         playerAnimator = player.GetComponent<PlayerAnimator>();
         playerController = player.GetComponent<PlayerController>();
+        shootPoint = playerController.shootPoint;
         bulletType.GetComponent<BulletAnimator>().bulletSpeed = bulletSpeed;
         canShoot = true;
     }
@@ -31,7 +31,7 @@ public class BulletCotroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (playerAnimator.enemiesCounter > 0 && !playerController.RollAnimationIsPlaying() && canShoot && !playerController.AnimatorIsInTransition())
+        if (playerAnimator.enemiesCounter > 0 && !playerController.RollAnimationIsPlaying() && canShoot && playerController.HeadIsFacingWeapon())
         {
             StartCoroutine(Shoot());
         }

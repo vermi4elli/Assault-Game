@@ -22,15 +22,21 @@ public class PlayerController : MonoBehaviour
 
     // Needed for checking if the animation is finished and checking it's name
     private Animator animator;
+    private PlayerAnimator playerAnimator;
 
     [SerializeField]
     private GameObject player;
+    [SerializeField]
+    private GameObject playerHead;
+    [SerializeField]
+    public Transform shootPoint;
     [SerializeField]
     private FloatingJoystick floatingJoystick;
 
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
+        playerAnimator = GetComponent<PlayerAnimator>();
     }
 
     void Update()
@@ -65,9 +71,14 @@ public class PlayerController : MonoBehaviour
         return animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
     }
 
+    public bool HeadIsFacingWeapon()
+    {
+        return Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1) < 30f;
+    }
+
     public bool AnimatorIsInTransition()
     {
-        return animator.IsInTransition(0);
+        return animator.IsInTransition(0) || animator.IsInTransition(1) || animator.IsInTransition(2);
     }
 
     public void DebugLog()
