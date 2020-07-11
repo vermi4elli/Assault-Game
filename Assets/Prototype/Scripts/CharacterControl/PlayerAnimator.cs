@@ -29,12 +29,15 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
 
+        // turning the weapon on/off depending on the boolean weaponIsActive
         weapon.SetActive(weaponIsActive);
 
+        // turning the hold animation on
         if (weapon.activeSelf)
         {
             animator.SetLayerWeight(1, 1);
 
+            // turning the shoot animation on
             if (enemiesCounter > 0 && !playerController.RollAnimationIsPlaying())
             {
                 animator.SetLayerWeight(2, 1);

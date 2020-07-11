@@ -77,7 +77,8 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        player.transform.Translate(player.transform.forward * speedPercent * moveSpeed * Time.fixedDeltaTime, Space.World);
+        if (!floatingJoystick.Direction.Equals(Vector2.zero))
+            player.transform.Translate(player.transform.forward * speedPercent * moveSpeed * Time.fixedDeltaTime, Space.World);
     }
 
     private void RotatePlayer()
