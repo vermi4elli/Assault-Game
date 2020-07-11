@@ -52,6 +52,6 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetLayerWeight(1, 0);
         }
 
-        playerController.DebugLog();
+        //playerController.DebugLog();
     }
 }

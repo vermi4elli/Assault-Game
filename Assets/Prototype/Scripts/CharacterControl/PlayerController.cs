@@ -62,7 +62,12 @@ public class PlayerController : MonoBehaviour
 
     public bool RollAnimationIsPlaying()
     {
-        return animator.GetCurrentAnimatorStateInfo(0).normalizedTime < 1 && animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
+    }
+
+    public bool AnimatorIsInTransition()
+    {
+        return animator.IsInTransition(0);
     }
 
     public void DebugLog()
