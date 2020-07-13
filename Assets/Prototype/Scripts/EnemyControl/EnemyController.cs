@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
             agent.SetDestination(target.position);
             agroMode = true;
 
-            if (distanceToTarget <= agent.stoppingDistance)
+            if (distanceToTarget <= agent.stoppingDistance && playerInTheFreeView)
             {
                 FaceTarget();
             }
