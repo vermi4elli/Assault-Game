@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 {
+    private float scopeRadius = 45f;
     public float lookRadius = 5f;
     private float distanceToTarget;
 
@@ -15,6 +16,8 @@ public class EnemyController : MonoBehaviour
     private Transform target;
     [SerializeField]
     public Transform shootPoint;
+    [SerializeField]
+    private GameObject enemyHead;
 
     void Start()
     {
@@ -41,6 +44,12 @@ public class EnemyController : MonoBehaviour
             agent.ResetPath();
             agroMode = false;
         }
+    }
+
+    public bool PlayerInTheScopeView()
+    {
+        Vector3 direction = target.position - transform.position;
+        return Vector3.Angle(enemyHead.transform.forward * -1, direction) < scopeRadius;
     }
 
     private void FaceTarget()
