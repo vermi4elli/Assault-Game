@@ -287,7 +287,7 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
         type: 3}
       propertyPath: m_Name
-      value: Male Model
+      value: Enemy Mesh
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
         type: 3}
@@ -444,6 +444,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookRadius: 7.42
   agroMode: 0
+  playerInTheFreeView: 0
   shootPoint: {fileID: 391675318}
   enemyHead: {fileID: 1479526600}
 --- !u!195 &301848641
@@ -1432,7 +1433,12 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
         type: 3}
       propertyPath: m_Name
-      value: Male Model
+      value: Player Mesh
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8555678731652910525, guid: d7ec6e3b03a1f1b49a624d3c13edb565,
         type: 3}
@@ -1510,7 +1516,7 @@ Rigidbody:
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 1
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0

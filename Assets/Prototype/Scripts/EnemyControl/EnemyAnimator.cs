@@ -25,7 +25,7 @@ public class EnemyAnimator : MonoBehaviour
         
         animator.SetFloat(speedPercentHash, agent.velocity.magnitude / agent.speed);
 
-        if (enemyController.agroMode && enemyController.PlayerInTheScopeView()) animator.SetLayerWeight(2, 1);
+        if (enemyController.agroMode && enemyController.PlayerInTheScopeView() && enemyController.playerInTheFreeView) animator.SetLayerWeight(2, 1);
         else animator.SetLayerWeight(2, 0);
     }
 }

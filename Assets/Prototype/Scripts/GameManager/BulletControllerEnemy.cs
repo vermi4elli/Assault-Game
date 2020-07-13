@@ -28,7 +28,7 @@ public class BulletControllerEnemy : MonoBehaviour
 
     void Update()
     {
-        if (enemyController.agroMode && canShoot && enemyController.PlayerInTheScopeView())
+        if (enemyController.agroMode && canShoot && enemyController.PlayerInTheScopeView() && enemyController.playerInTheFreeView)
         {
             StartCoroutine(Shoot());
         }
