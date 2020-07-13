@@ -47,12 +47,12 @@ public class EnemyController : MonoBehaviour
             agroMode = false;
         }
 
-        if (Time.frameCount % 10 == 0)
-        {
-            playerInTheFreeView = PlayerInTheFreeView();
-        }
+        // Debug.Log("player in the free view: " + playerInTheFreeView);
+    }
 
-        Debug.Log("player in the free view: " + playerInTheFreeView);
+    private void FixedUpdate()
+    {
+        playerInTheFreeView = PlayerInTheFreeView();
     }
 
     public bool PlayerInTheScopeView()
