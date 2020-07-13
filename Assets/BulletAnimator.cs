@@ -15,7 +15,7 @@ public class BulletAnimator : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitInfo)
     {
-        Debug.Log(hitInfo.name);
+        //Debug.Log(hitInfo.name);
         if (hitInfo.name != "Male Model")
             Destroy(gameObject);
     }

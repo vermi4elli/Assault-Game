@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     //objects
     public GameObject mainCamera;
-    public Transform player;
+    private Transform player;
 
     //needed constants
     public float verticalOffset = 20f;
@@ -18,6 +18,7 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        player = GetComponent<PlayerManager>().player.transform;
         followOffsetVector = new Vector3(followOffset * -1, 0f, followOffset * -1);
     }
 

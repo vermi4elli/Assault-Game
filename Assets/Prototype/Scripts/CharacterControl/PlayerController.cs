@@ -99,11 +99,13 @@ public class PlayerController : MonoBehaviour
 
     private void RotatePlayer()
     {
-        Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(floatingJoystick.Direction.x, 0f, floatingJoystick.Direction.y);
-        Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+        if (floatingJoystick.Direction != Vector2.zero)
+        {
+            Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(floatingJoystick.Direction.x, 0f, floatingJoystick.Direction.y);
+            Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
-        if (!floatingJoystick.Direction.Equals(Vector2.zero))
             player.transform.rotation = rotation;
+        }
     }
 
     private void UpdateSpeedPercentValue()
