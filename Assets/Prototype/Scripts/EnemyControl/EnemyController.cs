@@ -76,6 +76,11 @@ public class EnemyController : MonoBehaviour
         return true;
     }
 
+    public bool HeadIsFacingWeapon()
+    {
+        return Vector3.Angle(shootPoint.transform.forward, enemyHead.transform.forward * -1) < 30f;
+    }
+
     private void FaceTarget()
     {
         Vector3 direction = (target.position - transform.position).normalized;
