@@ -13,6 +13,8 @@ public class EnemyController : MonoBehaviour
 
     private NavMeshAgent agent;
     private Transform target;
+    [SerializeField]
+    public Transform shootPoint;
 
     void Start()
     {

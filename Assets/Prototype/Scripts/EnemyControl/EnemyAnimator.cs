@@ -6,11 +6,8 @@ using UnityEngine.AI;
 
 public class EnemyAnimator : MonoBehaviour
 {
-    [SerializeField]
     private Animator animator;
-    [SerializeField]
     private EnemyController enemyController;
-    [SerializeField]
     private NavMeshAgent agent;
     private int speedPercentHash = Animator.StringToHash("speedPercent");
 
@@ -24,7 +21,8 @@ public class EnemyAnimator : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("Current agent velocity is: " + agent.velocity);
+        //Debug.Log("Current agent velocity is: " + agent.velocity);
+        
         animator.SetFloat(speedPercentHash, agent.velocity.magnitude / agent.speed);
 
         if (enemyController.agroMode) animator.SetLayerWeight(2, 1);
