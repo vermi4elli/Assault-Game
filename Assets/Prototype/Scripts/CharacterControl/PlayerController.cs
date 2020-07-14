@@ -104,31 +104,32 @@ public class PlayerController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            switch (touch.phase)
+            if (touch.position.x < Screen.width / 2)
             {
-                case TouchPhase.Began:
-                    touchBegan = Time.time;
-                    break;
-                case TouchPhase.Ended:
-                    rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
-                    break;
-                default:
-                    rollForwardAwaken = false;
-                    break;
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        touchBegan = Time.time;
+                        break;
+                    case TouchPhase.Ended:
+                        rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+                        break;
+                    default:
+                        rollForwardAwaken = false;
+                        break;
+                }
+            }
+            else
+            {
+                rollForwardAwaken = false;
             }
         }
 
 #if UNITY_EDITOR
-        //if (Input.GetMouseButtonDown(0))
-        //    touchBegan = Time.time;
-        //if (Input.GetMouseButtonUp(0))
-        //    rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
-        //else rollForwardAwaken = false;
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            rollForwardAwaken = true;
-        }
+        if (Input.GetMouseButtonDown(0))
+            touchBegan = Time.time;
+        if (Input.GetMouseButtonUp(0))
+            rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
         else rollForwardAwaken = false;
 #endif
     }

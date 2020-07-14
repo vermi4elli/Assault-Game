@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Eventing.Reader;
+//using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 
 public class PlayerAnimator : MonoBehaviour
@@ -31,6 +31,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
+        playerController.rollForwardAwaken = false;
 
         // turning the weapon on/off depending on the boolean weaponIsActive
         weapon.SetActive(WeaponIsActive);
