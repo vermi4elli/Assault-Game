@@ -61,25 +61,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RollForwardPlayer()
-    {
-        player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
-    }
+    private void RollForwardPlayer() => player.transform.Translate(player.transform.forward * rollSpeed * Time.fixedDeltaTime, Space.World);
 
-    public bool RollAnimationIsPlaying()
-    {
-        return animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
-    }
+    public bool RollAnimationIsPlaying() => animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
 
-    public bool HeadIsFacingWeapon()
-    {
-        return Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1) < 30f;
-    }
+    public bool HeadIsFacingWeapon() => Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1) < 30f;
 
-    public bool AnimatorIsInTransition()
-    {
-        return animator.IsInTransition(0) || animator.IsInTransition(1) || animator.IsInTransition(2);
-    }
+    public bool AnimatorIsInTransition() => animator.IsInTransition(0) || animator.IsInTransition(1) || animator.IsInTransition(2);
 
     public void DebugLog()
     {
@@ -108,10 +96,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void UpdateSpeedPercentValue()
-    {
-        speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
-    }
+    private void UpdateSpeedPercentValue() => speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
 
     private void UpdateRollForwardAwakenValue()
     {
@@ -134,10 +119,16 @@ public class PlayerController : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
-            touchBegan = Time.time;
-        if (Input.GetMouseButtonUp(0))
-            rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+        //if (Input.GetMouseButtonDown(0))
+        //    touchBegan = Time.time;
+        //if (Input.GetMouseButtonUp(0))
+        //    rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+        //else rollForwardAwaken = false;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rollForwardAwaken = true;
+        }
         else rollForwardAwaken = false;
 #endif
     }
