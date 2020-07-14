@@ -47,7 +47,7 @@ public class EnemyController : MonoBehaviour
             agroMode = false;
         }
 
-        // Debug.Log("player in the free view: " + playerInTheFreeView);
+        Debug.Log("player in the free view: " + playerInTheFreeView);
     }
 
     private void FixedUpdate()
@@ -76,10 +76,7 @@ public class EnemyController : MonoBehaviour
         return true;
     }
 
-    public bool HeadIsFacingWeapon()
-    {
-        return Vector3.Angle(shootPoint.transform.forward, enemyHead.transform.forward * -1) < 30f;
-    }
+    public bool HeadIsFacingWeapon() => Vector3.Angle(shootPoint.transform.forward, enemyHead.transform.forward * -1) < 30f;
 
     private void FaceTarget()
     {

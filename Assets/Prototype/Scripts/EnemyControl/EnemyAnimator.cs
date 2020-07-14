@@ -21,7 +21,7 @@ public class EnemyAnimator : MonoBehaviour
 
     void Update()
     {
-        //Debug.Log("Current agent velocity is: " + agent.velocity);
+        // Debug.Log("Current agent velocity is: " + agent.velocity);
         
         animator.SetFloat(speedPercentHash, agent.velocity.magnitude / agent.speed);
 

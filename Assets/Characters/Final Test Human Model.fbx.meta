@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: d7ec6e3b03a1f1b49a624d3c13edb565
+guid: 9c9d5e72c085fb74c99982a6255e6c62
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
@@ -22,11 +22,17 @@ ModelImporter:
       74: -2483591982332496685
     second: metarig|Run
   - first:
+      74: 1298542177578492646
+    second: metarig|Run backwards
+  - first:
       74: 4122994689870801979
     second: metarig|Shoot two-handed weapon
   - first:
       74: 2933577835342229695
     second: metarig|Walk
+  - first:
+      74: 8024901425382746165
+    second: metarig|Walk backwards
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -205,7 +211,36 @@ ModelImporter:
       takeName: metarig|Run
       internalID: 0
       firstFrame: 0
-      lastFrame: 16
+      lastFrame: 13
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|Run backwards
+      takeName: metarig|Run backwards
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 13
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -261,6 +296,35 @@ ModelImporter:
     - serializedVersion: 16
       name: metarig|Walk
       takeName: metarig|Walk
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 24
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: metarig|Walk backwards
+      takeName: metarig|Walk backwards
       internalID: 0
       firstFrame: 0
       lastFrame: 24
