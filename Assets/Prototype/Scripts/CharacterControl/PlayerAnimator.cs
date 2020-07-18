@@ -12,7 +12,10 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField]
     private GameObject spine;
     [SerializeField]
+    private GameObject testPrefab;
+    [SerializeField]
     private bool weaponIsActive;
+    private FloatingJoystick shootJoystick;
 
     // temp value to test the shooting animation
     public int enemiesCounter;
@@ -30,6 +33,7 @@ public class PlayerAnimator : MonoBehaviour
     {
         animator = GetComponentInChildren<Animator>();
         playerController = GetComponentInChildren<PlayerController>();
+        shootJoystick = playerController.shootJoystick;
     }
 
     void Update()
@@ -39,14 +43,14 @@ public class PlayerAnimator : MonoBehaviour
         playerController.rollForwardAwaken = false;
 
         shootingDirection = playerController.shootDirection;
-        if (!shootingDirection.Equals(Vector3.zero))
-        {
-            spine.transform.rotation = playerController.shootDirection;
-        }
-        else
-        {
-            spine.transform.rotation = PlayerManager.instance.player.transform.rotation;
-        }
+        //if (!shootingDirection.Equals(Vector3.zero))
+        //{
+        //    spine.transform.rotation = shootingDirection;
+        //}
+        //else
+        //{
+        //    spine.transform.rotation = PlayerManager.instance.player.transform.rotation;
+        //}
 
         // turning the weapon on/off depending on the boolean weaponIsActive
         weapon.SetActive(WeaponIsActive);
@@ -71,6 +75,14 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetLayerWeight(1, 0);
         }
 
+        //Debug.Log("Shooting direction: " + shootingDirection);
+
         //playerController.DebugLog();
+    }
+
+    private void LateUpdate()
+    {
+        if (shootJoystick.Direction != Vector2.zero)
+            spine.transform.rotation = shootingDirection;
     }
 }

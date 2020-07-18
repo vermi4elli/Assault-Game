@@ -35,7 +35,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private FloatingJoystick moveJoystick;
     [SerializeField]
-    private FloatingJoystick shootJoystick;
+    public FloatingJoystick shootJoystick;
 
     void Start()
     {
@@ -49,7 +49,7 @@ public class PlayerController : MonoBehaviour
         UpdateShootRotationValue();
         UpdateRollForwardAwakenValue();
 
-        Debug.Log(shootDirection);
+        // Debug.Log(shootDirection);
     }
 
     void FixedUpdate()
@@ -106,8 +106,8 @@ public class PlayerController : MonoBehaviour
 
     private void UpdateShootRotationValue()
     {
-        Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(shootJoystick.Direction.x, 0f, shootJoystick.Direction.y);
-        Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+        Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(shootJoystick.Direction.x, 0f, shootJoystick.Direction.y) * -1;
+        Quaternion rotation = Quaternion.LookRotation(lookDirection, -Vector3.up);
 
         shootDirection = rotation;
     }
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
-            Debug.Log("x position: " + touch.position.x + "; half x: " + Screen.width / 2);
+            // Debug.Log("x position: " + touch.position.x + "; half x: " + Screen.width / 2);
             if (touch.position.x < Screen.width / 2)
             {
                 switch (touch.phase)
