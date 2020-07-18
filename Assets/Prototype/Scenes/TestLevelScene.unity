@@ -1313,8 +1313,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon: {fileID: 8555678730983542269}
   spine: {fileID: 1153079768}
+  characterRotation: {fileID: 704924540}
   testPrefab: {fileID: 88955159}
-  weaponIsActive: 0
+  shootJoystick: {fileID: 1498402155}
   enemiesCounter: 0
 --- !u!136 &673890374
 CapsuleCollider:
@@ -1377,6 +1378,12 @@ Transform:
   m_Father: {fileID: 1855075158}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &704924540 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8356538690890272372, guid: 9c9d5e72c085fb74c99982a6255e6c62,
+    type: 3}
+  m_PrefabInstance: {fileID: 673890368}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &794909626
 PrefabInstance:
   m_ObjectHideFlags: 0

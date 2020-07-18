@@ -12,10 +12,14 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField]
     private GameObject spine;
     [SerializeField]
+    private GameObject characterRotation;
+    [SerializeField]
     private GameObject testPrefab;
     [SerializeField]
-    private bool weaponIsActive;
     private FloatingJoystick shootJoystick;
+
+    private bool weaponIsActive;
+    private float rotationDifference;
 
     // temp value to test the shooting animation
     public int enemiesCounter;
@@ -23,6 +27,7 @@ public class PlayerAnimator : MonoBehaviour
     // used to change the animations
     private int speedPercentHash = Animator.StringToHash("speedPercent");
     private int rollForwardHash = Animator.StringToHash("rollForward");
+    private int rotationDifferenceHash = Animator.StringToHash("rotationDifference");
 
     // stores the value of the shooting direction of the player
     private Quaternion shootingDirection;
@@ -38,11 +43,16 @@ public class PlayerAnimator : MonoBehaviour
 
     void Update()
     {
+        shootingDirection = playerController.shootDirection;
+        rotationDifference = Vector3.Angle(spine.transform.forward, characterRotation.transform.forward);
+
+        Debug.Log("rotation difference: " + rotationDifference);
+
+        animator.SetFloat(rotationDifferenceHash, rotationDifference);
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
         playerController.rollForwardAwaken = false;
 
-        shootingDirection = playerController.shootDirection;
         //if (!shootingDirection.Equals(Vector3.zero))
         //{
         //    spine.transform.rotation = shootingDirection;
@@ -83,6 +93,8 @@ public class PlayerAnimator : MonoBehaviour
     private void LateUpdate()
     {
         if (shootJoystick.Direction != Vector2.zero)
+        {
             spine.transform.rotation = shootingDirection;
+        }
     }
 }
