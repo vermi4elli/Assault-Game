@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -15,6 +16,7 @@ public class PlayerController : MonoBehaviour
 
     // Passed to the PlayerAnimator to awaken animations
     public float speedPercent;
+    public Quaternion shootDirection;
     public bool rollForwardAwaken;
 
     // Needed for the UpdateRollForwardAwakenValue function
@@ -31,7 +33,9 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public Transform shootPoint;
     [SerializeField]
-    private FloatingJoystick floatingJoystick;
+    private FloatingJoystick moveJoystick;
+    [SerializeField]
+    private FloatingJoystick shootJoystick;
 
     void Start()
     {
@@ -42,9 +46,11 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         UpdateSpeedPercentValue();
+        UpdateShootRotationValue();
         UpdateRollForwardAwakenValue();
-    }
 
+        Debug.Log(shootDirection);
+    }
 
     void FixedUpdate()
     {
@@ -71,9 +77,9 @@ public class PlayerController : MonoBehaviour
 
     public void DebugLog()
     {
-        Debug.Log("x: " + floatingJoystick.Horizontal +
-            "; y: " + floatingJoystick.Vertical +
-            "; direction: " + floatingJoystick.Direction +
+        Debug.Log("x: " + moveJoystick.Horizontal +
+            "; y: " + moveJoystick.Vertical +
+            "; direction: " + moveJoystick.Direction +
             "; speed: " + speedPercent +
             "; rollingForward: " + RollAnimationIsPlaying() +
             "; space is pressed: " + rollForwardAwaken);
@@ -81,22 +87,30 @@ public class PlayerController : MonoBehaviour
 
     private void MovePlayer()
     {
-        if (!floatingJoystick.Direction.Equals(Vector2.zero))
+        if (!moveJoystick.Direction.Equals(Vector2.zero))
             player.transform.Translate(player.transform.forward * speedPercent * moveSpeed * Time.fixedDeltaTime, Space.World);
     }
 
     private void RotatePlayer()
     {
-        if (floatingJoystick.Direction != Vector2.zero)
+        if (moveJoystick.Direction != Vector2.zero)
         {
-            Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(floatingJoystick.Direction.x, 0f, floatingJoystick.Direction.y);
+            Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(moveJoystick.Direction.x, 0f, moveJoystick.Direction.y);
             Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
             player.transform.rotation = rotation;
         }
     }
 
-    private void UpdateSpeedPercentValue() => speedPercent = floatingJoystick.Direction.sqrMagnitude + 0.01f;
+    private void UpdateSpeedPercentValue() => speedPercent = moveJoystick.Direction.sqrMagnitude + 0.01f;
+
+    private void UpdateShootRotationValue()
+    {
+        Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(shootJoystick.Direction.x, 0f, shootJoystick.Direction.y);
+        Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
+
+        shootDirection = rotation;
+    }
 
     private void UpdateRollForwardAwakenValue()
     {
@@ -104,6 +118,7 @@ public class PlayerController : MonoBehaviour
         {
             Touch touch = Input.GetTouch(0);
 
+            Debug.Log("x position: " + touch.position.x + "; half x: " + Screen.width / 2);
             if (touch.position.x < Screen.width / 2)
             {
                 switch (touch.phase)
@@ -126,8 +141,10 @@ public class PlayerController : MonoBehaviour
         }
 
 #if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width / 2)
+        {
             touchBegan = Time.time;
+        }
         if (Input.GetMouseButtonUp(0))
             rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
         else rollForwardAwaken = false;

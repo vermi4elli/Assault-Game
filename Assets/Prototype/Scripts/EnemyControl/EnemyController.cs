@@ -46,8 +46,6 @@ public class EnemyController : MonoBehaviour
             agent.ResetPath();
             agroMode = false;
         }
-
-        Debug.Log("player in the free view: " + playerInTheFreeView);
     }
 
     private void FixedUpdate()

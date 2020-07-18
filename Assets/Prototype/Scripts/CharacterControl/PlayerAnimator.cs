@@ -10,6 +10,8 @@ public class PlayerAnimator : MonoBehaviour
     [SerializeField]
     private GameObject weapon;
     [SerializeField]
+    private GameObject spine;
+    [SerializeField]
     private bool weaponIsActive;
 
     // temp value to test the shooting animation
@@ -18,6 +20,9 @@ public class PlayerAnimator : MonoBehaviour
     // used to change the animations
     private int speedPercentHash = Animator.StringToHash("speedPercent");
     private int rollForwardHash = Animator.StringToHash("rollForward");
+
+    // stores the value of the shooting direction of the player
+    private Quaternion shootingDirection;
 
     public bool WeaponIsActive { get => weaponIsActive; set => weaponIsActive = value; }
 
@@ -32,6 +37,16 @@ public class PlayerAnimator : MonoBehaviour
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
         animator.SetBool(rollForwardHash, playerController.rollForwardAwaken);
         playerController.rollForwardAwaken = false;
+
+        shootingDirection = playerController.shootDirection;
+        if (!shootingDirection.Equals(Vector3.zero))
+        {
+            spine.transform.rotation = playerController.shootDirection;
+        }
+        else
+        {
+            spine.transform.rotation = PlayerManager.instance.player.transform.rotation;
+        }
 
         // turning the weapon on/off depending on the boolean weaponIsActive
         weapon.SetActive(WeaponIsActive);
