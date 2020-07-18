@@ -13,6 +13,8 @@ public class PlayerController : MonoBehaviour
     private float rollSpeed = 10f;
     [SerializeField]
     private float touchContinuityTime = 0.5f;
+    [SerializeField]
+    private float precisionAngle = 45;
 
     // Passed to the PlayerAnimator to awaken animations
     public float speedPercent;
@@ -37,6 +39,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     public FloatingJoystick shootJoystick;
 
+    public Vector2 moveJoystickDirection;
+    public Vector2 shootJoystickDirection;
+
+    private float rotationDegreeWithTwoHandedWeapon = 90f;
+
     void Start()
     {
         animator = GetComponentInChildren<Animator>();
@@ -48,8 +55,15 @@ public class PlayerController : MonoBehaviour
         UpdateSpeedPercentValue();
         UpdateShootRotationValue();
         UpdateRollForwardAwakenValue();
+        UpdateJoystickDirections();
 
         // Debug.Log(shootDirection);
+    }
+
+    private void UpdateJoystickDirections()
+    {
+        moveJoystickDirection = moveJoystick.Direction;
+        shootJoystickDirection = shootJoystick.Direction;
     }
 
     void FixedUpdate()
@@ -71,7 +85,16 @@ public class PlayerController : MonoBehaviour
 
     public bool RollAnimationIsPlaying() => animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
 
-    public bool HeadIsFacingWeapon() => Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1) < 30f;
+    public bool HeadIsFacingWeapon()
+    {
+        float resultingAngle = Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1);
+
+        Debug.Log("angle: " + resultingAngle +
+            "; precision: " + precisionAngle +
+            "; correct: " + (resultingAngle < precisionAngle));
+        
+        return (resultingAngle < precisionAngle);
+    }
 
     public bool AnimatorIsInTransition() => animator.IsInTransition(0) || animator.IsInTransition(1) || animator.IsInTransition(2);
 
@@ -93,20 +116,21 @@ public class PlayerController : MonoBehaviour
 
     private void RotatePlayer()
     {
-        if (moveJoystick.Direction != Vector2.zero)
+        if (moveJoystickDirection != Vector2.zero)
         {
-            Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(moveJoystick.Direction.x, 0f, moveJoystick.Direction.y);
+            Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(moveJoystickDirection.x, 0f, moveJoystickDirection.y);
             Quaternion rotation = Quaternion.LookRotation(lookDirection, Vector3.up);
 
             player.transform.rotation = rotation;
         }
     }
 
-    private void UpdateSpeedPercentValue() => speedPercent = moveJoystick.Direction.sqrMagnitude + 0.01f;
+    private void UpdateSpeedPercentValue() => speedPercent = moveJoystickDirection.sqrMagnitude + 0.01f;
 
     private void UpdateShootRotationValue()
     {
-        Vector3 lookDirection = Quaternion.Euler(0f, 44f, 0f) * new Vector3(shootJoystick.Direction.x, 0f, shootJoystick.Direction.y) * -1;
+        Vector3 lookDirection = Quaternion.Euler(0f, rotationDegreeWithTwoHandedWeapon, 0f) * 
+            new Vector3(shootJoystickDirection.x, 0f, shootJoystickDirection.y) * -1;
         Quaternion rotation = Quaternion.LookRotation(lookDirection, -Vector3.up);
 
         shootDirection = rotation;

@@ -63,7 +63,7 @@ public class EnemyController : MonoBehaviour
     public bool PlayerInTheFreeView()
     {
         RaycastHit hit;
-        if (Physics.Linecast(enemyHead.transform.position, new Vector3(target.position.x, enemyHead.transform.position.y, target.position.z), out hit))
+        if (Physics.Linecast(enemyHead.transform.position, target.position, out hit))
         {
             if (hit.transform.tag == "Player")
             {

@@ -29,6 +29,11 @@ public class BulletCotrollerPlayer : MonoBehaviour
 
     void Update()
     {
+        Debug.Log("some enemies: " + (playerAnimator.enemiesCounter > 0) + 
+            "; not rolling: " + !playerController.RollAnimationIsPlaying() +
+            "; can shoot: " + canShoot +
+            "; angle correct: " + playerController.HeadIsFacingWeapon());
+
         if (playerAnimator.enemiesCounter > 0 && !playerController.RollAnimationIsPlaying() && canShoot && playerController.HeadIsFacingWeapon())
         {
             StartCoroutine(Shoot());
