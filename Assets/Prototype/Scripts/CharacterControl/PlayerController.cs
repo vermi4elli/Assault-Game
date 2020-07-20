@@ -89,9 +89,9 @@ public class PlayerController : MonoBehaviour
     {
         float resultingAngle = Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1);
 
-        Debug.Log("angle: " + resultingAngle +
-            "; precision: " + precisionAngle +
-            "; correct: " + (resultingAngle < precisionAngle));
+        //Debug.Log("angle: " + resultingAngle +
+        //    "; precision: " + precisionAngle +
+        //    "; correct: " + (resultingAngle < precisionAngle));
         
         return (resultingAngle < precisionAngle);
     }
@@ -140,38 +140,45 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0);
-
-            // Debug.Log("x position: " + touch.position.x + "; half x: " + Screen.width / 2);
-            if (touch.position.x < Screen.width / 2)
+            bool foundMoveTouch = false;
+            foreach (Touch touch in Input.touches)
             {
-                switch (touch.phase)
+                if (touch.position.x < Screen.width / 2)
                 {
-                    case TouchPhase.Began:
-                        touchBegan = Time.time;
-                        break;
-                    case TouchPhase.Ended:
-                        rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
-                        break;
-                    default:
-                        rollForwardAwaken = false;
-                        break;
+                    foundMoveTouch = true;
+                    CheckRollForwardInput(touch);
                 }
             }
-            else
-            {
-                rollForwardAwaken = false;
-            }
+
+            if (!foundMoveTouch) rollForwardAwaken = false;
+
+            // Debug.Log("x position: " + touch.position.x + "; half x: " + Screen.width / 2);
         }
 
-#if UNITY_EDITOR
-        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width / 2)
+//#if UNITY_EDITOR
+//        if (Input.GetMouseButtonDown(0) && Input.mousePosition.x < Screen.width / 2)
+//        {
+//            touchBegan = Time.time;
+//        }
+//        if (Input.GetMouseButtonUp(0))
+//            rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+//        else rollForwardAwaken = false;
+//#endif
+    }
+
+    private void CheckRollForwardInput(Touch touch)
+    {
+        switch (touch.phase)
         {
-            touchBegan = Time.time;
+            case TouchPhase.Began:
+                touchBegan = Time.time;
+                break;
+            case TouchPhase.Ended:
+                rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
+                break;
+            default:
+                rollForwardAwaken = false;
+                break;
         }
-        if (Input.GetMouseButtonUp(0))
-            rollForwardAwaken = Time.time - touchBegan < touchContinuityTime;
-        else rollForwardAwaken = false;
-#endif
     }
 }

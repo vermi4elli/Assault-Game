@@ -49,10 +49,10 @@ public class PlayerAnimator : MonoBehaviour
         shootingDirection = playerController.shootDirection;
         rotationDifference = Vector2.Angle(shootJoystickDirection, moveJoystickDirection);
 
-        //Debug.Log("shoot direction: " + shootJoystickDirection + 
-        //    "move direction: " + moveJoystickDirection + 
-        //    "rotation difference: " + rotationDifference +
-        //    "character rotation will be applied" + (shootJoystickDirection == Vector2.zero));
+        Debug.Log("shoot direction: " + shootJoystickDirection +
+            "move direction: " + moveJoystickDirection +
+            "rotation difference: " + rotationDifference +
+            "character rotation will be applied" + (shootJoystickDirection == Vector2.zero));
 
         animator.SetFloat(rotationDifferenceHash, rotationDifference);
         animator.SetFloat(speedPercentHash, playerController.speedPercent);
@@ -69,7 +69,7 @@ public class PlayerAnimator : MonoBehaviour
             animator.SetLayerWeight(1, 1);
 
             // turning the shoot animation on
-            if (enemiesCounter > 0 && !playerController.RollAnimationIsPlaying())
+            if (shootJoystickDirection != Vector2.zero && !playerController.RollAnimationIsPlaying())
             {
                 animator.SetLayerWeight(2, 1);
             }
@@ -90,7 +90,7 @@ public class PlayerAnimator : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (shootJoystickDirection != Vector2.zero)
+        if (shootJoystickDirection != Vector2.zero && !playerController.RollAnimationIsPlaying())
         {
             spine.transform.rotation = shootingDirection;
         }
