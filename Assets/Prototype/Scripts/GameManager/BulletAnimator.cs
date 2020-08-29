@@ -7,6 +7,7 @@ public class BulletAnimator : MonoBehaviour
     public float bulletSpeed = 8.97f;
     public float bulletDamage = 10f;
     public Rigidbody rb;
+    public string bullet;
     public string enemy;
     public string friend;
     GameObject hitObject;
@@ -14,6 +15,7 @@ public class BulletAnimator : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        bullet = transform.gameObject.name;
         rb.velocity = transform.forward * bulletSpeed;
     }
 
@@ -34,6 +36,8 @@ public class BulletAnimator : MonoBehaviour
                 hitObject.GetComponent<PlayerController>().Hit(bulletDamage);
             }
         }
+
+        if (hitInfo.name != bullet)
         Destroy(gameObject);
     }
 }
