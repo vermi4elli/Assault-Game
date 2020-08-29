@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Security.Cryptography;
 //using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 using UnityEngine.AI;
@@ -10,6 +11,10 @@ public class EnemyController : MonoBehaviour
     private float scopeRadius = 45f;
     public float lookRadius = 5f;
     private float distanceToTarget;
+
+    // The stats
+    [SerializeField]
+    private float health = 100;
 
     public bool agroMode = false;
     public bool playerInTheFreeView = false;
@@ -72,6 +77,19 @@ public class EnemyController : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void Hit(float damageAmount)
+    {
+        if (health < damageAmount)
+        {
+            Debug.Log("Enemy is DEAD!");
+            Destroy(transform.gameObject);
+        }
+        else
+        {
+            health -= damageAmount;
+        }
     }
 
     public bool HeadIsFacingWeapon() => Vector3.Angle(shootPoint.transform.forward, enemyHead.transform.forward * -1) < 30f;

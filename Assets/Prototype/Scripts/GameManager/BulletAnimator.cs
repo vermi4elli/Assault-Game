@@ -4,8 +4,12 @@ using UnityEngine;
 
 public class BulletAnimator : MonoBehaviour
 {
-    public float bulletSpeed;
+    public float bulletSpeed = 8.97f;
+    public float bulletDamage = 10f;
     public Rigidbody rb;
+    public string enemy;
+    public string friend;
+    GameObject hitObject;
 
     void Start()
     {
@@ -15,8 +19,21 @@ public class BulletAnimator : MonoBehaviour
 
     private void OnTriggerEnter(Collider hitInfo)
     {
-        //Debug.Log(hitInfo.name);
-        if (hitInfo.name != "Male Model")
-            Destroy(gameObject);
+        if (hitInfo.name == enemy)
+        {
+            GameObject hitObject = hitInfo.transform.gameObject;
+            Debug.LogWarning(hitObject.name);
+                
+            // shit code
+            if (friend == PlayerManager.instance.player.gameObject.name)
+            {
+                hitObject.GetComponent<EnemyController>().Hit(bulletDamage);
+            }
+            else
+            {
+                hitObject.GetComponent<PlayerController>().Hit(bulletDamage);
+            }
+        }
+        Destroy(gameObject);
     }
 }

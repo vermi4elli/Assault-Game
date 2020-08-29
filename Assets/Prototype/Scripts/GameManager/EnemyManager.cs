@@ -6,8 +6,19 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    #region Singleton
+
+    public static EnemyManager instance;
+
+    void Awake()
+    {
+        instance = this;
+    }
+
+    #endregion
+
     [SerializeField]
-    private GameObject enemyType;
+    public GameObject enemyType;
     [SerializeField]
     private List<GameObject> enemies = new List<GameObject>();
     [SerializeField]
@@ -18,9 +29,9 @@ public class EnemyManager : MonoBehaviour
     {
         for (int i = 0; i < enemiesAmount; i++)
         {
-            GameObject spawnPoint = ChooseSpawnPoint();
-            GameObject enemyTemp = Instantiate(enemyType, spawnPoint.transform.position + Vector3.up, spawnPoint.transform.rotation);
-            enemies.Add(enemyTemp);
+            //GameObject spawnPoint = ChooseSpawnPoint();
+            //GameObject enemyTemp = Instantiate(enemyType, spawnPoint.transform.position + Vector3.up, spawnPoint.transform.rotation);
+            //enemies.Add(enemyTemp);
         }
     }
 

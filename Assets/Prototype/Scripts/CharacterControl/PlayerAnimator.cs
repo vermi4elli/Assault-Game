@@ -49,10 +49,10 @@ public class PlayerAnimator : MonoBehaviour
         shootingDirection = playerController.shootDirection;
         rotationDifference = Vector2.Angle(shootJoystickDirection, moveJoystickDirection);
 
-        Debug.Log("shoot direction: " + shootJoystickDirection +
+        /* Debug.Log("shoot direction: " + shootJoystickDirection +
             "move direction: " + moveJoystickDirection +
             "rotation difference: " + rotationDifference +
-            "character rotation will be applied" + (shootJoystickDirection == Vector2.zero));
+            "character rotation will be applied" + (shootJoystickDirection == Vector2.zero)); */
 
         animator.SetFloat(rotationDifferenceHash, rotationDifference);
         animator.SetFloat(speedPercentHash, playerController.speedPercent);

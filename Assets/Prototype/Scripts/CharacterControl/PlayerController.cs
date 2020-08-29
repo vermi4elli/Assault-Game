@@ -16,6 +16,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float precisionAngle = 45;
 
+    // The stats
+    [SerializeField]
+    private float health = 100;
+
     // Passed to the PlayerAnimator to awaken animations
     public float speedPercent;
     public Quaternion shootDirection;
@@ -85,6 +89,19 @@ public class PlayerController : MonoBehaviour
 
     public bool RollAnimationIsPlaying() => animator.GetCurrentAnimatorStateInfo(0).IsName("Roll forward");
 
+    public void Hit(float damageAmount)
+    {
+        if (health < damageAmount)
+        {
+            Debug.Log("You are DEAD!");
+            Destroy(PlayerManager.instance.player);
+        }
+        else
+        {
+            health -= damageAmount;
+        }
+    }
+
     public bool HeadIsFacingWeapon()
     {
         float resultingAngle = Vector3.Angle(shootPoint.transform.forward, playerHead.transform.forward * -1);
@@ -131,9 +148,11 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 lookDirection = Quaternion.Euler(0f, rotationDegreeWithTwoHandedWeapon, 0f) * 
             new Vector3(shootJoystickDirection.x, 0f, shootJoystickDirection.y) * -1;
-        Quaternion rotation = Quaternion.LookRotation(lookDirection, -Vector3.up);
-
-        shootDirection = rotation;
+        if (lookDirection != Vector3.zero)
+        {
+            Quaternion rotation = Quaternion.LookRotation(lookDirection, -Vector3.up);
+            shootDirection = rotation;
+        }
     }
 
     private void UpdateRollForwardAwakenValue()

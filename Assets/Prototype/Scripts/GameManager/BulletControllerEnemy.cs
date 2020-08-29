@@ -10,6 +10,8 @@ public class BulletControllerEnemy : MonoBehaviour
     private EnemyAnimator enemyAnimator;
     private EnemyController enemyController;
     private Transform shootPoint;
+    private string friend;
+    private string enemy;
 
     [SerializeField]
     private float bulletSpeed;
@@ -24,6 +26,8 @@ public class BulletControllerEnemy : MonoBehaviour
         shootPoint = enemyController.shootPoint;
         bulletType.GetComponent<BulletAnimator>().bulletSpeed = bulletSpeed;
         canShoot = true;
+        friend = enemyController.transform.gameObject.name;
+        enemy = PlayerManager.instance.player.gameObject.name;
     }
 
     void Update()
@@ -40,7 +44,9 @@ public class BulletControllerEnemy : MonoBehaviour
 
     private IEnumerator Shoot()
     {
-        Instantiate(bulletType, shootPoint.position, shootPoint.rotation);
+        GameObject bullet = Instantiate(bulletType, shootPoint.position, shootPoint.rotation);
+        bullet.GetComponent<BulletAnimator>().friend = friend;
+        bullet.GetComponent<BulletAnimator>().enemy = enemy;
         canShoot = false;
         yield return new WaitForSeconds(cooldownTime);
         canShoot = true;
