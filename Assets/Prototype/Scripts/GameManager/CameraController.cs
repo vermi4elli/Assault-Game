@@ -55,7 +55,6 @@ public class CameraController : MonoBehaviour
         {
             if (!hidingObstacle) {
                 obstacleInAWay = hit.transform.gameObject;
-                Debug.Log(hit.transform.name);
                 hidingObstacle = true;
 
                 obstacleInAWayShader = obstacleInAWay.GetComponent<Renderer>().material.shader;
@@ -67,7 +66,6 @@ public class CameraController : MonoBehaviour
             if (hidingObstacle)
             {
                 obstacleInAWay.GetComponent<Renderer>().material.shader = obstacleInAWayShader;
-                Debug.Log("showing obstacle");
                 hidingObstacle = false;
             }
         }

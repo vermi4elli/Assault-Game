@@ -24,7 +24,7 @@ public class BulletAnimator : MonoBehaviour
         if (hitInfo.name == enemy)
         {
             GameObject hitObject = hitInfo.transform.gameObject;
-            Debug.LogWarning(hitObject.name);
+            // Debug.Log(hitObject.name);
                 
             // shit code
             if (friend == PlayerManager.instance.player.gameObject.name)

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography;
+using Unity.Profiling;
 //using System.Diagnostics.Eventing.Reader;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,6 +20,11 @@ public class EnemyController : MonoBehaviour
     public bool agroMode = false;
     public bool playerInTheFreeView = false;
 
+    // Patrol variables
+    NavMeshHit navHit; // Saving the point of the NavMesh the agent should patrol to
+    private float patrolTimer;
+    private bool canPatrol;
+    
     private NavMeshAgent agent;
     private Transform target;
     [SerializeField]
@@ -30,27 +36,81 @@ public class EnemyController : MonoBehaviour
     {
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
+        canPatrol = true;
+        patrolTimer = 1f;
     }
 
     void Update()
     {
-        distanceToTarget = Vector3.Distance(target.position, transform.position);
+        UpdateDistanceToTarget();
+        UpdateAgroBehaviour();
 
-        if (distanceToTarget <= lookRadius)
+        MoveAgent();
+
+        // Debug.Log(canPatrol);
+    }
+
+    private void UpdateAgroBehaviour()
+    {
+        if (!PlayerManager.instance.player.activeInHierarchy)
         {
-            agent.SetDestination(target.position);
-            agroMode = true;
-
-            if (playerInTheFreeView)
-            {
-                FaceTarget();
-            }
+            agroMode = false;
         }
         else
         {
-            agent.ResetPath();
-            agroMode = false;
+            if (distanceToTarget <= lookRadius)
+            {
+                agent.SetDestination(target.position);
+                agroMode = true;
+
+                if (playerInTheFreeView)
+                {
+                    FaceTarget();
+                }
+            }
+            else
+            {
+                agent.ResetPath();
+                agroMode = false;
+            }
         }
+    }
+
+    private void MoveAgent()
+    {
+        if (agroMode)
+        {
+            agent.SetDestination(target.position);
+        }
+        else
+        {
+            StartCoroutine(Patrol());
+        }
+    }
+
+    private IEnumerator Patrol()
+    {
+        agent.SetDestination(GetPatrolPoint());
+        canPatrol = false;
+        yield return new WaitForSeconds(patrolTimer);
+        canPatrol = true;
+    }
+
+    private Vector3 GetPatrolPoint()
+    {
+        // Getting a random point in the lookRadius of the agent
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * lookRadius;
+        randomDirection += agent.transform.position;
+
+        // Getting that point on the NavMesh in the lookRadius of the agent
+        NavMesh.SamplePosition(randomDirection, out navHit, lookRadius, -1);
+
+        return navHit.position;
+    }
+
+    private void UpdateDistanceToTarget()
+    {
+        distanceToTarget = Vector3.Distance(target.position, transform.position);
     }
 
     private void FixedUpdate()
@@ -84,7 +144,7 @@ public class EnemyController : MonoBehaviour
         if (health < damageAmount)
         {
             Debug.Log("Enemy is DEAD!");
-            Destroy(transform.gameObject);
+            transform.gameObject.SetActive(false);
         }
         else
         {
