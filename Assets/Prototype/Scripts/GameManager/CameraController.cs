@@ -34,6 +34,7 @@ public class CameraController : MonoBehaviour
         player = GetComponent<PlayerManager>().player.transform;
         playerLoin = GetComponent<PlayerManager>().playerLoin.transform;
         followOffsetVector = new Vector3(followOffset * -1, 0f, followOffset * -1);
+        mainCamera.transform.LookAt(player.transform.position);
     }
 
     private void Update()
@@ -48,7 +49,6 @@ public class CameraController : MonoBehaviour
     {
         Vector3 moveDirection = direction - mainCamera.transform.position;
         mainCamera.transform.Translate(moveDirection * followSpeed * Time.deltaTime, Space.World);
-        mainCamera.transform.LookAt(player.transform.position);
 
         RaycastHit hit;
         if (Physics.Linecast(Camera.main.transform.position, playerLoin.position, out hit, layerMask))

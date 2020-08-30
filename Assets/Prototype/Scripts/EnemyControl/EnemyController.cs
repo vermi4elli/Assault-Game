@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour
     // Patrol variables
     NavMeshHit navHit; // Saving the point of the NavMesh the agent should patrol to
     private float patrolTimer;
+    private Vector3 patrolDestination;
     private bool canPatrol;
     
     private NavMeshAgent agent;
@@ -37,7 +38,8 @@ public class EnemyController : MonoBehaviour
         target = PlayerManager.instance.player.transform;
         agent = GetComponent<NavMeshAgent>();
         canPatrol = true;
-        patrolTimer = 1f;
+        patrolTimer = 4f;
+        patrolDestination = agent.transform.position;
     }
 
     void Update()
@@ -46,8 +48,6 @@ public class EnemyController : MonoBehaviour
         UpdateAgroBehaviour();
 
         MoveAgent();
-
-        // Debug.Log(canPatrol);
     }
 
     private void UpdateAgroBehaviour()
@@ -58,21 +58,7 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
-            if (distanceToTarget <= lookRadius)
-            {
-                agent.SetDestination(target.position);
-                agroMode = true;
-
-                if (playerInTheFreeView)
-                {
-                    FaceTarget();
-                }
-            }
-            else
-            {
-                agent.ResetPath();
-                agroMode = false;
-            }
+            agroMode = distanceToTarget <= lookRadius;
         }
     }
 
@@ -81,16 +67,34 @@ public class EnemyController : MonoBehaviour
         if (agroMode)
         {
             agent.SetDestination(target.position);
+
+            if (playerInTheFreeView)
+            {
+                FaceTarget();
+            }
         }
         else
         {
-            StartCoroutine(Patrol());
+            if (canPatrol)
+            {
+                StartCoroutine(Patrol());
+            }
         }
     }
 
     private IEnumerator Patrol()
     {
-        agent.SetDestination(GetPatrolPoint());
+        agent.isStopped = true;
+
+        // checking if the destination is farer than the stoppingDistance
+        // because the agent won't move untill it would be
+        while (Vector3.Distance(agent.transform.position, patrolDestination) <= agent.stoppingDistance) {
+            patrolDestination = GetPatrolPoint();
+        }
+        agent.SetDestination(patrolDestination);
+
+        agent.isStopped = false;
+
         canPatrol = false;
         yield return new WaitForSeconds(patrolTimer);
         canPatrol = true;
@@ -99,12 +103,11 @@ public class EnemyController : MonoBehaviour
     private Vector3 GetPatrolPoint()
     {
         // Getting a random point in the lookRadius of the agent
-        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * lookRadius;
-        randomDirection += agent.transform.position;
+        Vector3 randomDirection = UnityEngine.Random.insideUnitSphere * lookRadius + agent.transform.position;
 
         // Getting that point on the NavMesh in the lookRadius of the agent
-        NavMesh.SamplePosition(randomDirection, out navHit, lookRadius, -1);
-
+        NavMesh.SamplePosition(randomDirection, out navHit, lookRadius, NavMesh.AllAreas);
+        
         return navHit.position;
     }
 

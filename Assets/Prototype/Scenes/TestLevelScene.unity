@@ -1937,6 +1937,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Mesh
       objectReference: {fileID: 0}
+    - target: {fileID: 6616179151083227204, guid: 0b4babfd9d2eb084080d4a13efdaf553,
+        type: 3}
+      propertyPath: m_BaseOffset
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616179151083227204, guid: 0b4babfd9d2eb084080d4a13efdaf553,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6616179151083227204, guid: 0b4babfd9d2eb084080d4a13efdaf553,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 6.15
+      objectReference: {fileID: 0}
     - target: {fileID: 6655153251745542057, guid: 0b4babfd9d2eb084080d4a13efdaf553,
         type: 3}
       propertyPath: m_LocalPosition.x
