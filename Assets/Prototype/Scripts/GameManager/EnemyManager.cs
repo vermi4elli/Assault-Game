@@ -6,42 +6,29 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
-    #region Singleton
+    // enemy prefab
+    public GameObject enemyType;
+    [SerializeField]
+    private List<GameObject> enemies;
+    // amount of needed enemies on the level
+    [SerializeField]
+    private int enemiesAmount;
+    // amount of active or alive enemies
+    [SerializeField]
+    private int activeEnemiesAmount;
 
+    // Singleton
     public static EnemyManager instance;
 
     void Awake()
     {
         instance = this;
+
+        enemies = ObjectPool.instance.CreatePool(enemyType, enemiesAmount);
     }
-
-    #endregion
-
-    [SerializeField]
-    public GameObject enemyType;
-    [SerializeField]
-    private List<GameObject> enemies = new List<GameObject>();
-    [SerializeField]
-    private int enemiesAmount;
 
     // Start is called before the first frame update
     void Start()
-    {
-        for (int i = 0; i < enemiesAmount; i++)
-        {
-            //GameObject spawnPoint = ChooseSpawnPoint();
-            //GameObject enemyTemp = Instantiate(enemyType, spawnPoint.transform.position + Vector3.up, spawnPoint.transform.rotation);
-            //enemies.Add(enemyTemp);
-        }
-    }
-
-    private GameObject ChooseSpawnPoint()
-    {
-        throw new NotImplementedException();
-    }
-
-    // Update is called once per frame
-    void Update()
     {
         
     }

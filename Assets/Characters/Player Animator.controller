@@ -136,7 +136,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 3
     m_ConditionEvent: rotationDifference
-    m_EventTreshold: 49
+    m_EventTreshold: 44
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -841229150050300663}
   m_Solo: 0
@@ -366,7 +366,7 @@ AnimatorStateTransition:
   m_Conditions:
   - m_ConditionMode: 4
     m_ConditionEvent: rotationDifference
-    m_EventTreshold: 49
+    m_EventTreshold: 44
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -373436296507634711}
   m_Solo: 0
